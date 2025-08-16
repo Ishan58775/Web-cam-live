@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Enter Name</title>
+  <link rel="stylesheet" href="/style.css"/>
+</head>
+<body>
+  <div class="container">
+    <h1>Generate Capture Link</h1>
+    <input id="name" placeholder="Enter name" />
+    <button id="go">Generate Link</button>
+    <div id="out"></div>
+  </div>
+
+  <script>
+    document.getElementById("go").addEventListener("click", () => {
+      const name = document.getElementById("name").value.trim();
+      if (!name) return alert("Please enter a name");
+      const sessionId = Date.now().toString() + Math.floor(Math.random()*1000);
+      const link = `${location.origin}/capture?name=${encodeURIComponent(name)}&sessionId=${encodeURIComponent(sessionId)}`;
+      document.getElementById("out").innerHTML = `<p><b>Share this link:</b> <a href="${link}" target="_blank">${link}</a></p>`;
+    });
+  </script>
+</body>
+</html>
